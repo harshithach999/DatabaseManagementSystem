@@ -1,59 +1,67 @@
-# DatabaseManagementSystem
-
-# Database Application Development
+# Northwind Database Management System
 
 ## Description
 
-The sales information for a fictional business named Northwind Traders, which imports and exports exotic delicacies from all over the world, is stored in the Northwind database. Microsoft had it ready for technological instruction.
-In Microsoft Access, you can find the latest version of the database by entering, In the Search for Online Templates box, type "Northwind." The sales information for a fictional business named Northwind Traders is contained in the Northwind database. 
-This brings in and sends out specialty meals from across the globe. Microsoft had it ready for technological instruction.
+This project demonstrates a database application built on the **Northwind** database, which stores sales information for a fictional company, **Northwind Traders**. Northwind Traders imports and exports exotic delicacies worldwide. The Northwind database is widely used for technical instruction and is available in **Microsoft Access**.
+
+In this project, we use the MySQL version of the Northwind database. The application allows users to interact with the database via a command-line interface, enabling operations like adding customers, placing orders, shipping orders, and more.
 
 ## Installation
 
-1. Upload the required file into Mysql and install python.
-2. Install dependencies with `pip install `.
+1. **Set up the MySQL Database**:
+    - Download the Northwind database in SQL format and upload it to your local MySQL instance.
+    - Ensure the MySQL server is running, and update the connection parameters in the code if needed.
+   
+2. **Install Python and Dependencies**:
+    - Install Python 3.x if not already installed.
+    - Install the necessary Python dependencies:
+      ```bash
+      pip install mysql-connector-python
+      ```
 
 ## Usage
 
-1. Connect to Database:
-Use connect_to_database() to establish a connection to the MySQL database. This function returns a connection object.
+1. **Connect to the Database**:
+    - Use the `connect_to_database()` function to establish a connection to the MySQL database. This function returns a connection object that is used in subsequent operations.
+   
+2. **Add a Customer**:
+    - Call `add_customer(connection)` to interactively add a customer to the `Customers` table. You'll be prompted to enter customer details (name, address, etc.). The function inserts the new customer into the database.
 
-2. Add a Customer:
-Utilize add_customer(connection) to interactively add a customer to the "Customers" table. The user is prompted to enter customer details, and the information is inserted into the database.
+3. **Add an Order**:
+    - Call `add_order(connection, customer_id, product_quantities)` to place an order for a customer. Provide the customer ID and a dictionary containing product quantities. This function adds both the order and the order details to the database.
 
-2. Add an Order:
-Call add_order(connection, customer_id, product_quantities) to add an order to the "Orders" table. The user provides the customer ID and a dictionary of product quantities. The function handles the insertion of order details into the database.
+4. **Remove an Order**:
+    - Use `remove_order(connection, order_id)` to delete an order from the `Orders` table, including its related entries in `Order_Details`.
 
-3. Remove an Order:
-Use remove_order(connection, order_id) to remove an order. The user provides the order ID to be deleted, and the function deletes the corresponding entries from the "Orders" and "Order_Details" tables.
+5. **Ship an Order**:
+    - Use `ship_order(connection, order_id, shipper_id, shipping_fee)` to process an order shipment. This function verifies inventory, updates the `Orders` table with shipment details, and adjusts inventory levels.
 
-4. Ship an Order:
-Call ship_order(connection, order_id, shipper_id, shipping_fee) to ship an order. The user provides the order ID, shipper ID, and shipping fee. The function checks if there are enough units in stock for each product in the order before updating the database.
+6. **Print Pending Orders**:
+    - Call `print_pending_orders(connection)` to display orders that have not yet been shipped.
 
-5. Print Pending Orders:
-Use print_pending_orders(connection) to display a list of pending orders. The function queries the "Orders" table for orders with a NULL "ShippedDate" and prints relevant information.
+7. **More Options**:
+    - Access additional features via the "More Options" menu:
+      - Print all orders for a customer.
+      - View the number of order details associated with a customer.
 
-6. More Options:
-Access additional functionalities through the "More Options" menu. Options include printing orders for a customer, printing the number of order details for a customer, or returning to the main menu.
+8. **Error Handling**:
+    - The code includes robust error handling for database transactions, including rollbacks in case of errors during operations.
 
-7. Handling Connection:
-The database connection is automatically closed when the program concludes.
-
-8. Error Handling:
-The code incorporates error handling for database-related operations, including rollbacks in case of errors during transactions.
-
-9. Exiting the Program:
-To exit the program, choose option 7 in the main menu.
+9. **Exiting the Program**:
+    - To exit, choose option 7 from the main menu, which will automatically close the database connection.
 
 ## Extra Features
 
-- Feature 1: printing orders for a customer.
-- Feature 2: printing the number of order details for a customer or returning to the main menu.
+- **Print Orders for a Customer**: Fetch and display all orders placed by a specific customer.
+- **Order Details Count**: Retrieve and display the number of order details associated with a specific customer.
 
-## Code Compilation
+## Running the Program
 
-To run the program, execute the following command:
+To run the program, execute:
 
+```bash
 python run.py
+```
 
+This will start the command-line interface where you can interact with the database, add customers, manage orders, and more.
 
